@@ -2,9 +2,13 @@
 
 import Home from "./Home";
 import About from "./About";
+import Noun from "./Noun";
+import Verb from "./Verb";
 import { createRoute } from "../core/coreComponent";
 
 export default createRoute([
   {path: '#/', component: Home},
-  {path: '#/about', component: About}
+  {path: '#/noun', component: Noun},
+  {path: '#/verb', component: Verb},
+  {path: '#/about', component: About},
 ])

@@ -1,0 +1,51 @@
+:root {
+  --color--mainblue : #00165D;
+  --color--charcol : #273746;
+  --color--white : #FDFEFE;
+}
+
+body {
+  color: var(--color--mainblue);
+}
+
+/* Wordlist */
+.word {
+  width: 100%;
+}
+
+ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  list-style: none;
+}
+ul li {
+  flex-wrap: wrap;
+  border: 2px solid var(--color--mainblue);
+  border-radius: 20px;
+  width: 240px;
+  height: 120px;
+  margin: 5px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ul li span{
+  padding: 10px;
+}
+
+/* Header */
+
+header {
+  margin: 0px 10px;
+}
+
+header a {
+  text-decoration: none;
+  color: var(--color--mainblue);
+  cursor: pointer;
+}
+
+

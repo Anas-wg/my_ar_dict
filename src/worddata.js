@@ -1,4 +1,4 @@
-DATA = [
+export const DATA = [
   {
     "id": 1,
     "mean": "방향,방면",

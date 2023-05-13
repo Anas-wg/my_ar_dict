@@ -31,19 +31,7 @@ function routeRender(routes){
   }
 
   const routerView = document.querySelector('router-view')
-  // 주소의 hash 값과 쿼리스트링을 분리
   const [hash, querystring = ''] = location.hash.split('?')
-  const query = querystring
-    .split('&')
-    .reduce((acc, cur)=> {
-    // 'a=123' 을 = 기준으로 할당 -> cur = { key: a, value: 123 }
-    const [key, value] = cur.split('=')
-    acc[key] = value
-    return acc
-  }, {})
-
-  // query 값이 history 객체의 state 값으로 할당 -> state: {a: '123', b: '456', c: '789'}
-  history.replaceState(query,'')
   // 넘어오는 routes 로부터 hash 값 가져오기
   const currentRoute = routes.find(route => new RegExp(`${route.path}/?$`).test(hash))
   

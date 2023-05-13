@@ -615,16 +615,7 @@ function routeRender(routes) {
     // 예외처리
     if (!location.hash) history.replaceState(null, "", "/#/");
     const routerView = document.querySelector("router-view");
-    // 주소의 hash 값과 쿼리스트링을 분리
     const [hash, querystring = ""] = location.hash.split("?");
-    const query = querystring.split("&").reduce((acc, cur)=>{
-        // 'a=123' 을 = 기준으로 할당 -> cur = { key: a, value: 123 }
-        const [key, value] = cur.split("=");
-        acc[key] = value;
-        return acc;
-    }, {});
-    // query 값이 history 객체의 state 값으로 할당 -> state: {a: '123', b: '456', c: '789'}
-    history.replaceState(query, "");
     // 넘어오는 routes 로부터 hash 값 가져오기
     const currentRoute = routes.find((route)=>new RegExp(`${route.path}/?$`).test(hash));
     // 각 객체의 실제 출력물은 속에 component 속성
@@ -685,10 +676,12 @@ class TheHeader extends (0, _coreComponent.CoreCompoent) {
     }
     render() {
         this.el.innerHTML = /* HTML */ `
-    <h1>Al-Klimat</h1>
+    <h1 class="title">Al-Klimat</h1>
     <!-- hash 를 이용하여 페이지를 이동 -->
       <a href='#'>Home</a>
     <!-- hash 변경시마다 window 객체에 postate 이벤트 발생 -->
+      <a href='#/noun'>Noun</a>
+      <a href='#/verb'>Verb</a>
       <a href='#/about'>About</a>
     `;
     }
@@ -703,6 +696,10 @@ var _home = require("./Home");
 var _homeDefault = parcelHelpers.interopDefault(_home);
 var _about = require("./About");
 var _aboutDefault = parcelHelpers.interopDefault(_about);
+var _noun = require("./Noun");
+var _nounDefault = parcelHelpers.interopDefault(_noun);
+var _verb = require("./Verb");
+var _verbDefault = parcelHelpers.interopDefault(_verb);
 var _coreComponent = require("../core/coreComponent");
 exports.default = (0, _coreComponent.createRoute)([
     {
@@ -710,25 +707,459 @@ exports.default = (0, _coreComponent.createRoute)([
         component: (0, _homeDefault.default)
     },
     {
+        path: "#/noun",
+        component: (0, _nounDefault.default)
+    },
+    {
+        path: "#/verb",
+        component: (0, _verbDefault.default)
+    },
+    {
         path: "#/about",
         component: (0, _aboutDefault.default)
     }
 ]);
 
-},{"./Home":"0JSNG","./About":"gdB30","../core/coreComponent":"2sEqF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"0JSNG":[function(require,module,exports) {
+},{"./Home":"0JSNG","./About":"gdB30","../core/coreComponent":"2sEqF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./Noun":"a4xRt","./Verb":"KYWK6"}],"0JSNG":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _coreComponent = require("../core/coreComponent");
+var _wordList = require("../components/WordList");
+var _wordListDefault = parcelHelpers.interopDefault(_wordList);
 class Home extends (0, _coreComponent.CoreCompoent) {
     render() {
         this.el.innerHTML = /* HTML */ `
-    <h1>Home Page</h1>
+    <h1 class="title">Home Page</h1>
     `;
+        this.el.append(new (0, _wordListDefault.default)().el);
     }
 }
 exports.default = Home;
 
-},{"../core/coreComponent":"2sEqF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gdB30":[function(require,module,exports) {
+},{"../core/coreComponent":"2sEqF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../components/WordList":"baYYT"}],"baYYT":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _coreComponent = require("../core/coreComponent");
+var _worddata = require("../worddata");
+class WordList extends (0, _coreComponent.CoreCompoent) {
+    render() {
+        const data = (0, _worddata.DATA);
+        this.el.innerHTML = /* html */ `
+      <div class="word">
+        <ul>
+        ${data.map(function(element) {
+            return `
+            <li class = "wordlist">
+              <span>${element.single}</span>
+              <span>${element.mean}</span>
+            </li>
+            `;
+        }).join("")}
+        </ul> 
+      </div>
+    `;
+    }
+}
+exports.default = WordList;
+
+},{"../core/coreComponent":"2sEqF","../worddata":"ctuUF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ctuUF":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "DATA", ()=>DATA);
+const DATA = [
+    {
+        "id": 1,
+        "mean": "방향,방면",
+        "single": "نحو",
+        "plural": "أَنْحَاء",
+        "example": "وبذلك كان قد توجه من جديد في طريقه نحو المدينة",
+        "exmean": "다시 새롭게 도시를 향해 길에서 걸어갔다",
+        "part": "noun",
+        "appendix": ""
+    },
+    {
+        "id": 2,
+        "mean": "강의,강좌",
+        "single": "محاظرة",
+        "plural": "محاضرات",
+        "example": "و هل حصل أحدكم على درس الأحد الماضى؟",
+        "exmean": "당신들 중 누가 지난 일요일에 수업을 들었나요?",
+        "part": "noun",
+        "appendix": ""
+    },
+    {
+        "id": 3,
+        "mean": "UN(국제연합)",
+        "single": "الأمم المتحدة",
+        "plural": "",
+        "example": "الأمم المتحدة تشرف على الانتخابات التي عقدت في كمبوديا",
+        "exmean": "UN은 캄보디아에서 이루어진 선거를 감독한다.",
+        "part": "noun",
+        "appendix": "الولايات المتحدة:미국(US)"
+    },
+    {
+        "id": 4,
+        "mean": "상태",
+        "single": "حال",
+        "plural": "أحْوَال",
+        "example": "مؤشر يميز حالة حساب المتداول في الوقت الحالي.",
+        "exmean": "지표는 그 시간의 거래자의 계좌 상태를 나타냈다.",
+        "part": "noun",
+        "appendix": ""
+    },
+    {
+        "id": 5,
+        "mean": "내일",
+        "single": "غَدًا",
+        "plural": "",
+        "example": "المقابلة الشخصية ستكون غدا",
+        "exmean": "인터뷰는 내일 시작될 예정입니다.",
+        "part": "noun",
+        "appendix": "أمس:어제"
+    },
+    {
+        "id": 6,
+        "mean": "프로그램",
+        "single": "بَرْنَامَج",
+        "plural": "بَرَامِج",
+        "example": "العلوم والتكنولوجيا الالكترونية هو برنامج رئيسي وطني.",
+        "exmean": "대학은 국가의 핵심 프로그램인 전기공학을 제안했다.",
+        "part": "noun",
+        "appendix": ""
+    },
+    {
+        "id": 7,
+        "mean": "아랍어",
+        "single": "اللُّغَةُ الْعَرَبِيَّةُ",
+        "plural": "",
+        "example": "هل تعرفين قراءة اللغة ألعربية",
+        "exmean": "당신은 아랍어를 읽는 것을 알고 있나요?",
+        "part": "noun",
+        "appendix": ""
+    },
+    {
+        "id": 8,
+        "mean": "이슬람",
+        "single": "الإسلام",
+        "plural": "",
+        "example": "الإسلام كما يثبت اسمُهُ هو السلام.",
+        "exmean": "이슬람교는 이름처럼 평화에 관한 것입니다.",
+        "part": "noun",
+        "appendix": ""
+    },
+    {
+        "id": 9,
+        "mean": "종교",
+        "single": "دِيَانَة",
+        "plural": "ديانات",
+        "example": "ديانة الطفل تعتبر أمرًا داخليًا للعائلة",
+        "exmean": "아이들의 종교는 가족 안에서 결정할 문제이다",
+        "part": "noun",
+        "appendix": ""
+    },
+    {
+        "id": 11,
+        "mean": "회원",
+        "single": "عضو",
+        "plural": "أعضاء",
+        "example": "أنت أهم عضو في فريق علاجك.",
+        "exmean": "당신은 치료팀의 가장 중요한 멤버입니다.",
+        "part": "noun",
+        "appendix": ""
+    },
+    {
+        "id": 12,
+        "mean": "시대",
+        "single": "عصر",
+        "plural": "أَعْصَار",
+        "example": 'العالم يعيش "عصر البلاستيك"…',
+        "exmean": "우리는 플라스틱의 시대에 살고 있습니다.",
+        "part": "noun",
+        "appendix": ""
+    },
+    {
+        "id": 13,
+        "mean": "확산",
+        "single": "اِنْتِشَار",
+        "plural": "",
+        "example": "المحور الثاني الهام هو انتشار التكنولوجيا.",
+        "exmean": "두 번째 주요 동향은 정보 기술의 확산이다.",
+        "part": "noun",
+        "appendix": "8형اِنْتَشَرَ- يَنْتَشِرُ (م: اِنْتِشارٌ)"
+    },
+    {
+        "id": 14,
+        "mean": "감염",
+        "single": "عَدْوَى",
+        "plural": "",
+        "example": "الوقاية الحصول على لقطات لقاح HiB سيمنع العدوى في معظم الأطفال.",
+        "exmean": "예정된 HiB 백신 주사를 맞으면 대부분의 아이들의 감염을 막을 수 있다.",
+        "part": "noun",
+        "appendix": "감염되다: عَدَا - يَعْدُو‎"
+    },
+    {
+        "id": 15,
+        "mean": "감기",
+        "single": "رَشْح",
+        "plural": "",
+        "example": "شكرا، هل أصابك الرشح يا تيد ؟",
+        "exmean": "고마워, 테드 너 감기 걸렸니?",
+        "part": "noun",
+        "appendix": "لَعِبَ-يَلْعَبُ:놀다,운동하다"
+    },
+    {
+        "id": 16,
+        "mean": "증상",
+        "single": "عَرَض",
+        "plural": "أَعْرَاض",
+        "example": "أي علامات أو أعراض ليست طبيعية.",
+        "exmean": "정상적이지 않은 징후나 증상이 있습니다.",
+        "part": "noun",
+        "appendix": "발생하다:عَرَضَ-يَعْرِضُ"
+    },
+    {
+        "id": 17,
+        "mean": "운동장",
+        "single": "مَلْعَب",
+        "plural": "مَلَاعِب",
+        "example": "الملاعب الكبيرة والشوارع لن تستخدم بعد الحدث كثيرا.",
+        "exmean": "그 큰 경기장과 거리들은 행사 이후 한번도 쓰이지 않을 것이다.",
+        "part": "noun",
+        "appendix": ""
+    },
+    {
+        "id": 18,
+        "mean": "편의성,쉬움",
+        "single": "سُهُولَة",
+        "plural": "",
+        "example": "التقاط أي نوع من المعلومات وتقاسمها بسهولة.",
+        "exmean": "모든 종류의 정보를 쉽게 저장하고 공유할 수 있습니다.",
+        "part": "noun",
+        "appendix": ""
+    },
+    {
+        "id": 19,
+        "mean": "친구",
+        "single": "صَدِيق",
+        "plural": "أَصْدِقاء",
+        "example": "من الصعب الحصول على أصدقاء جدد عندما تسافر منفردا",
+        "exmean": "혼자 여행할때 새로운 친구를 만나는 것은 어렵다",
+        "part": "noun",
+        "appendix": ""
+    },
+    {
+        "id": 20,
+        "mean": "운동",
+        "single": "رِيَاضَة",
+        "plural": "رياضات",
+        "example": "يشتمل هذا المنتجع على شاطئ خاص ومطاعم ومرافق رياضات مائية.",
+        "exmean": "리조트에는 개인 해변, 레스토랑, 수상 스포츠 시설이 있습니다.",
+        "part": "noun",
+        "appendix": ""
+    },
+    {
+        "id": 21,
+        "mean": "제출한다",
+        "single": "قَدَّمَ",
+        "plural": "يَقْدُمُ",
+        "example": "ومن المقرر أن تقدم اللجنة تقريرها في 15 ديسمبر كانون الاول.",
+        "exmean": "위원회는 12월15일까지 보고서를 제출할 것입니다.",
+        "part": "verb",
+        "appendix": "2형قَدَّمَ - يُقَدِّمُ (م: تَقْدِيمٌ)"
+    },
+    {
+        "id": 22,
+        "mean": "배우다",
+        "single": "تَعَلَّمَ",
+        "plural": "يَتَعَلَّمُ",
+        "example": "تعلم تداول العملات الأجنبية وبدء الأعمال التجارية الخاصة بك.",
+        "exmean": "당신은 영어를 배우고 당신의 사업을 시작할 수 있다.",
+        "part": "verb",
+        "appendix": "م:تَعَلُّم"
+    },
+    {
+        "id": 23,
+        "mean": "일하다",
+        "single": "عَمِلَ",
+        "plural": "يَعْمَلُ",
+        "example": "مركز التوطين Monika يساعد النساء المهاجرات العاطلات عن العمل في العثور على مكان العمل.",
+        "exmean": "Monika 이민 센터는 무직 여성들이 직업을 찾도록 돕습니다.",
+        "part": "verb",
+        "appendix": "م: عَمَل"
+    },
+    {
+        "id": 24,
+        "mean": "참여하다",
+        "single": "شَارَكَ",
+        "plural": "يُشَارِكُ في",
+        "example": "شارك ستة مرشحين من الحزب الديمقراطي في هذا الحدث.",
+        "exmean": "6명의 민주당 후보자들은 그 행사에 참여했습니다.",
+        "part": "verb",
+        "appendix": ""
+    },
+    {
+        "id": 25,
+        "mean": "방문하다",
+        "single": "زَارَ",
+        "plural": "يَزُورُ",
+        "example": "لا، لا، هو كَانَ يَزُورُ.",
+        "exmean": "아뇨, 그는 방문 했다.",
+        "part": "verb",
+        "appendix": ""
+    },
+    {
+        "id": 26,
+        "mean": "좋아하다,사랑하다",
+        "single": "أَحَبَّ",
+        "plural": "يُحِبُّ",
+        "example": "القدرة علي أن يُحِبْ وأن يُحَبْ.",
+        "exmean": "사랑하는 능력과 사랑받는 능력.",
+        "part": "verb",
+        "appendix": "م:حُبّ"
+    },
+    {
+        "id": 27,
+        "mean": "딱 맞다,적절하다",
+        "single": "نَاسَبَ",
+        "plural": "يُنَاسِبُ",
+        "example": "ولكنه الخاتم كان يناسبها وكأنه صُنع لها",
+        "exmean": "그러나 반지는 그녀를 위해 만든 것 처럼 딱 맞았다",
+        "part": "verb",
+        "appendix": "م:مُنَاسَبَة"
+    },
+    {
+        "id": 28,
+        "mean": "감소하다,남다",
+        "single": "خَفَضَ",
+        "plural": "يَخْفِضُ",
+        "example": "شرب كأس من عصير الخضار يومياً يخفض الوزن",
+        "exmean": "매일 한잔의 야채주스를 마시면 살이 빠진다.",
+        "part": "verb",
+        "appendix": "م:خَفْض"
+    },
+    {
+        "id": 29,
+        "mean": "들어가다",
+        "single": "دَخَلَ",
+        "plural": "يَدْخُلُ",
+        "example": "، لذا، عندما يدخل الزبائن من الباب أتجاهلهم",
+        "exmean": "소비자들이 문으로 들어왔을때, 나는 그들을 무시한다.",
+        "part": "verb",
+        "appendix": "م:دُخُول"
+    },
+    {
+        "id": 30,
+        "mean": "따라잡다, 이기다",
+        "single": "تَفَوَّقَ",
+        "plural": "يتفوق على",
+        "example": "متى يتفوق اقتصاد الصين على نظيره الأميركي؟",
+        "exmean": "언제 중국경제가 미국을 따라 잡았습니까?(미국 보다 뛰어나다)",
+        "part": "verb",
+        "appendix": ""
+    },
+    {
+        "id": 31,
+        "mean": "거절하다,피하다",
+        "single": "جَنَبَ",
+        "plural": "يَجْنُبُ",
+        "example": "لذا فإن إجراء الانتخابات الآن يجنب ماي هذه المخاطرة.",
+        "exmean": "선거를 중지함으로써, 메이는 위험을 피했다.",
+        "part": "verb",
+        "appendix": ""
+    },
+    {
+        "id": 32,
+        "mean": "거주하다,세우다",
+        "single": "أَقَامَ",
+        "plural": "يُقِيمُ",
+        "example": "يقيم الزوجان في مدريد، إسبانيا.",
+        "exmean": "그 커플은 스페인 마드리드에 거주한다",
+        "part": "verb",
+        "appendix": ""
+    },
+    {
+        "id": 33,
+        "mean": "바라보다",
+        "single": "نَظَرَ",
+        "plural": "يَنْظُرُ",
+        "example": "إنّه الرجل الوحيد الذي لا ينظر إليكِ.",
+        "exmean": "그는 너를 바라보지 않은 유일한 남자이다.",
+        "part": "verb",
+        "appendix": ""
+    },
+    {
+        "id": 34,
+        "mean": "~에 두다, 설치하다",
+        "single": "وَضَعَ",
+        "plural": "يَضَعُ",
+        "example": "لـماذا يضع القـاتل رسـالته في جريـدة؟",
+        "exmean": "왜 그 킬러는 그의 메시지를 신문에 남겨두었나요?",
+        "part": "verb",
+        "appendix": ""
+    },
+    {
+        "id": 35,
+        "mean": "마시다",
+        "single": "شَرِبَ",
+        "plural": "يَشْرَبُ",
+        "example": "معظمنا يشرب فنجان قهوة على معدة فارغة.",
+        "exmean": "대부분의 사람들은(우리들 중 대부분은) 빈속에 커피를 마신다.",
+        "part": "verb",
+        "appendix": ""
+    },
+    {
+        "id": 36,
+        "mean": "추천하다, 조언하다",
+        "single": "نَصَحَ",
+        "plural": "يَنْصَحُ بـ",
+        "example": "بعد ذلك، ينصح الأطباء بأخذ استراحة ليوم واحد.",
+        "exmean": "그 후에, 의사는 하루 쉬라고 조언했다.",
+        "part": "verb",
+        "appendix": ""
+    },
+    {
+        "id": 37,
+        "mean": "~을 연습시키다",
+        "single": "دَرِبَ",
+        "plural": "يَدْرَبُ",
+        "example": "وهو مبني على مئات الساعات من الابحاث والتدريب",
+        "exmean": "그것은 수백 시간의 연구와 연습에 기반한 것이다.",
+        "part": "verb",
+        "appendix": "دَرَّبَ - يُدَرِّبُ (م: تَدْرِيبٌ) 2형"
+    },
+    {
+        "id": 38,
+        "mean": "웃다",
+        "single": "ضَحِكَ",
+        "plural": "يَضْحَكُ",
+        "example": "وأنا مازلت معك لأنك تحملنيعلى الضحك.",
+        "exmean": "너가 날 웃게 하기 때문에 나는 너의 곁에 있는거야.",
+        "part": "verb",
+        "appendix": ""
+    },
+    {
+        "id": 39,
+        "mean": "환영하다",
+        "single": "رَحَّبَ",
+        "plural": "يُرَحِّبُ",
+        "example": "ابتسم، ورحب بهم، واسألهم عن أحوالهم.",
+        "exmean": "미소 지으세요, 그리고 그들을 환영하세요, 또 그들에게 안부를 물어보세요",
+        "part": "verb",
+        "appendix": ""
+    },
+    {
+        "id": 40,
+        "mean": "결혼하다",
+        "single": "زَوَّجَ",
+        "plural": "يُزَوِّجُ",
+        "example": "لا أحد يجب أن يزوّج ألا الشخص الذي يحبه.",
+        "exmean": "아무도 그들이 사랑하는 사람과 결혼하지 않았다.",
+        "part": "",
+        "appendix": ""
+    }
+];
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gdB30":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _coreComponent = require("../core/coreComponent");
@@ -746,6 +1177,60 @@ class About extends (0, _coreComponent.CoreCompoent) {
 }
 exports.default = About;
 
-},{"../core/coreComponent":"2sEqF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["e11Rl","gLLPy"], "gLLPy", "parcelRequiref982")
+},{"../core/coreComponent":"2sEqF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a4xRt":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _coreComponent = require("../core/coreComponent");
+var _worddata = require("../worddata");
+class Noun extends (0, _coreComponent.CoreCompoent) {
+    render() {
+        const data = (0, _worddata.DATA);
+        this.el.innerHTML = /* html */ `
+      <h1> Noun Page</h1>
+      <div class="word">
+        <ul>
+        ${data.filter((data)=>data.part === "noun").map(function(element) {
+            return `
+            <li class = "wordlist">
+              <span>${element.single}</span>
+              <span>${element.mean}</span>
+            </li>
+            `;
+        }).join("")}
+        </ul> 
+      </div>
+    `;
+    }
+}
+exports.default = Noun;
+
+},{"../core/coreComponent":"2sEqF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../worddata":"ctuUF"}],"KYWK6":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _coreComponent = require("../core/coreComponent");
+var _worddata = require("../worddata");
+class Verb extends (0, _coreComponent.CoreCompoent) {
+    render() {
+        const data = (0, _worddata.DATA);
+        this.el.innerHTML = /* html */ `
+      <h1> Verb Page</h1>
+      <div class="word">
+        <ul>
+        ${data.filter((data)=>data.part === "verb").map(function(element) {
+            return `
+            <li class = "wordlist">
+              <span>${element.single}</span>
+              <span>${element.mean}</span>
+            </li>
+            `;
+        }).join("")}
+        </ul> 
+      </div>
+    `;
+    }
+}
+exports.default = Verb;
+
+},{"../core/coreComponent":"2sEqF","../worddata":"ctuUF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["e11Rl","gLLPy"], "gLLPy", "parcelRequiref982")
 
 //# sourceMappingURL=index.4d6bcbeb.js.map
