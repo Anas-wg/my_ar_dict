@@ -2,6 +2,7 @@
 1. 핵심 컴포넌트 - html에서 출력할 수 있게 받아온 tagName,state,props를 받아와서
 이를 출력
 2. 라우팅 기능 - 해쉬값을 받아와서 이에 일치하는 js 파일을 출력
+3. Store 기능 - 특정한 어떤 데이터를 여러 컴포넌트에서 활용할 수 있도록
 */
 
 // 1. 핵심 컴포넌트
@@ -49,5 +50,28 @@ export function createRoute(routes) {
       routeRender(routes)
     })
     routeRender(routes)
+  }
+}
+
+
+// 3. Store 기능
+export class Store {
+  constructor(state){
+    this.state = {}
+    this.observers = {}
+    for(const key in state){
+      Object.defineProperty(this.state, key, {
+        get: () => state[key],
+        set: val => {
+          state[key] = val
+          this.observers[key].forEach(observer => observer[val]);
+        }
+      })
+    }
+  }
+  subscribe(key, cb){
+    Array.isArray(this.observers[key])
+      ? this.observers[key].push(cb)
+      : this.observers[key] = [cb]
   }
 }

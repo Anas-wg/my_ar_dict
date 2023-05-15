@@ -582,7 +582,8 @@ class App extends (0, _coreComponent.CoreCompoent) {
         // router-view 태그 생성
         const routerView = document.createElement("router-view");
         // this.el은 tagName에 따라 만들어지는 태그, 그안에 router-view 태그를 삽입
-        this.el.append(new (0, _theHeaderDefault.default)().el, routerView);
+        this.el.append(new (0, _theHeaderDefault.default)().el, // new SearchBar().el,
+        routerView);
     }
 }
 exports.default = App;
@@ -592,11 +593,14 @@ exports.default = App;
 1. 핵심 컴포넌트 - html에서 출력할 수 있게 받아온 tagName,state,props를 받아와서
 이를 출력
 2. 라우팅 기능 - 해쉬값을 받아와서 이에 일치하는 js 파일을 출력
+3. Store 기능 - 특정한 어떤 데이터를 여러 컴포넌트에서 활용할 수 있도록
 */ // 1. 핵심 컴포넌트
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "CoreCompoent", ()=>CoreCompoent);
 parcelHelpers.export(exports, "createRoute", ()=>createRoute);
+// 3. Store 기능
+parcelHelpers.export(exports, "Store", ()=>Store);
 class CoreCompoent {
     constructor(payload = {}){
         const { tagName ="div" , state ={} , props ={}  } = payload;
@@ -632,6 +636,24 @@ function createRoute(routes) {
         });
         routeRender(routes);
     };
+}
+class Store {
+    constructor(state){
+        this.state = {};
+        this.observers = {};
+        for(const key in state)Object.defineProperty(this.state, key, {
+            get: ()=>state[key],
+            set: (val)=>{
+                state[key] = val;
+                this.observers[key].forEach((observer)=>observer[val]);
+            }
+        });
+    }
+    subscribe(key, cb) {
+        Array.isArray(this.observers[key]) ? this.observers[key].push(cb) : this.observers[key] = [
+            cb
+        ];
+    }
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
@@ -683,6 +705,7 @@ class TheHeader extends (0, _coreComponent.CoreCompoent) {
       <a href='#/noun'>Noun</a>
       <a href='#/verb'>Verb</a>
       <a href='#/about'>About</a>
+      <a href='#/search'>🔎</a>
     `;
     }
 }
@@ -701,6 +724,8 @@ var _nounDefault = parcelHelpers.interopDefault(_noun);
 var _verb = require("./Verb");
 var _verbDefault = parcelHelpers.interopDefault(_verb);
 var _coreComponent = require("../core/coreComponent");
+var _serach = require("./Serach");
+var _serachDefault = parcelHelpers.interopDefault(_serach);
 exports.default = (0, _coreComponent.createRoute)([
     {
         path: "#/",
@@ -717,15 +742,21 @@ exports.default = (0, _coreComponent.createRoute)([
     {
         path: "#/about",
         component: (0, _aboutDefault.default)
+    },
+    {
+        path: "#/search",
+        component: (0, _serachDefault.default)
     }
 ]);
 
-},{"./Home":"0JSNG","./About":"gdB30","../core/coreComponent":"2sEqF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./Noun":"a4xRt","./Verb":"KYWK6"}],"0JSNG":[function(require,module,exports) {
+},{"./Home":"0JSNG","./About":"gdB30","../core/coreComponent":"2sEqF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./Noun":"a4xRt","./Verb":"KYWK6","./Serach":"km0km"}],"0JSNG":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _coreComponent = require("../core/coreComponent");
 var _wordList = require("../components/WordList");
 var _wordListDefault = parcelHelpers.interopDefault(_wordList);
+var _serach = require("./Serach");
+var _serachDefault = parcelHelpers.interopDefault(_serach);
 class Home extends (0, _coreComponent.CoreCompoent) {
     render() {
         this.el.innerHTML = /* HTML */ `
@@ -736,7 +767,7 @@ class Home extends (0, _coreComponent.CoreCompoent) {
 }
 exports.default = Home;
 
-},{"../core/coreComponent":"2sEqF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../components/WordList":"baYYT"}],"baYYT":[function(require,module,exports) {
+},{"../core/coreComponent":"2sEqF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../components/WordList":"baYYT","./Serach":"km0km"}],"baYYT":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _coreComponent = require("../core/coreComponent");
@@ -746,11 +777,11 @@ class WordList extends (0, _coreComponent.CoreCompoent) {
         const data = (0, _worddata.DATA);
         this.el.innerHTML = /* html */ `
       <div class="word">
-        <ul>
+        <ul id = "myUL">
         ${data.map(function(element) {
             return `
             <li class = "wordlist">
-              <span>${element.single}</span>
+              <span>${element.single} ${element.plural ? "-" + element.plural : ""}</span>
               <span>${element.mean}</span>
             </li>
             `;
@@ -1159,7 +1190,43 @@ const DATA = [
     }
 ];
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gdB30":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"km0km":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _coreComponent = require("../core/coreComponent");
+var _worddata = require("../worddata");
+class Search extends (0, _coreComponent.CoreCompoent) {
+    render() {
+        this.el.classList.add("search");
+        this.el.innerHTML = /* html */ `
+      <input
+        placeholder ="Enter the word mean"
+      >
+      <button>
+        Search!
+      </button>
+      <div>
+        <ul>
+          <li class="result">값이 없다면 변하지 않음</li>
+        </ul>
+      </div>
+
+    `;
+        const inputEl = this.el.querySelector("input");
+        const btnEl = this.el.querySelector("button");
+        const resultEl = this.el.querySelector(".result");
+        btnEl.addEventListener("click", ()=>{
+            (0, _worddata.DATA).filter((data)=>data.mean === inputEl.value).map(function(element) {
+                resultEl.innerHTML = /* html */ `
+          ${element.single} : ${element.mean}
+          `;
+            });
+        });
+    }
+}
+exports.default = Search;
+
+},{"../core/coreComponent":"2sEqF","../worddata":"ctuUF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gdB30":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _coreComponent = require("../core/coreComponent");
@@ -1192,7 +1259,7 @@ class Noun extends (0, _coreComponent.CoreCompoent) {
         ${data.filter((data)=>data.part === "noun").map(function(element) {
             return `
             <li class = "wordlist">
-              <span>${element.single}</span>
+            <span>${element.single} ${element.plural ? "-" + element.plural : " "}</span>
               <span>${element.mean}</span>
             </li>
             `;
@@ -1204,7 +1271,7 @@ class Noun extends (0, _coreComponent.CoreCompoent) {
 }
 exports.default = Noun;
 
-},{"../core/coreComponent":"2sEqF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../worddata":"ctuUF"}],"KYWK6":[function(require,module,exports) {
+},{"../core/coreComponent":"2sEqF","../worddata":"ctuUF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"KYWK6":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _coreComponent = require("../core/coreComponent");
@@ -1219,7 +1286,7 @@ class Verb extends (0, _coreComponent.CoreCompoent) {
         ${data.filter((data)=>data.part === "verb").map(function(element) {
             return `
             <li class = "wordlist">
-              <span>${element.single}</span>
+            <span>${element.single} ${element.plural ? "-" + element.plural : " "}</span>
               <span>${element.mean}</span>
             </li>
             `;

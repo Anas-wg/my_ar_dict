@@ -5,10 +5,13 @@ import About from "./About";
 import Noun from "./Noun";
 import Verb from "./Verb";
 import { createRoute } from "../core/coreComponent";
+import Search from "./Serach";
 
 export default createRoute([
   {path: '#/', component: Home},
   {path: '#/noun', component: Noun},
   {path: '#/verb', component: Verb},
   {path: '#/about', component: About},
+  {path: '#/search', component: Search},
+
 ])

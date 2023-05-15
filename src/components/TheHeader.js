@@ -15,6 +15,7 @@ export default class TheHeader extends CoreCompoent{
       <a href='#/noun'>Noun</a>
       <a href='#/verb'>Verb</a>
       <a href='#/about'>About</a>
+      <a href='#/search'>🔎</a>
     `
   }
 }

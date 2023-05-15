@@ -1,5 +1,6 @@
 import { CoreCompoent } from "../core/coreComponent";
 import WordList from "../components/WordList";
+import Search from "./Serach";
 
 
 export default class Home extends CoreCompoent {
@@ -8,7 +9,7 @@ export default class Home extends CoreCompoent {
     <h1 class="title">Home Page</h1>
     `
     this.el.append(
-      new WordList().el
+      new WordList().el,
     )
   }
 }

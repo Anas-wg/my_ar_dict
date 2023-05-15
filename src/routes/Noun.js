@@ -14,7 +14,7 @@ export default class Noun extends CoreCompoent {
         .map(function (element) {
             return `
             <li class = "wordlist">
-              <span>${element.single}</span>
+            <span>${element.single} ${element.plural ? "-"+ element.plural : " "}</span>
               <span>${element.mean}</span>
             </li>
             `
