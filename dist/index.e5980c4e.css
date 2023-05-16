@@ -21,7 +21,7 @@ ul {
 }
 
 ul li {
-  border: 2px solid var(--color--mainblue);
+  border: 1px solid var(--color--mainblue);
   width: 240px;
   height: 120px;
   border-radius: 20px;
@@ -30,6 +30,13 @@ ul li {
   align-items: center;
   margin: 5px 10px;
   display: flex;
+  box-shadow: 2px 2px 6px gray;
+}
+
+ul li:hover {
+  font-size: 18px;
+  transition: all .6s;
+  box-shadow: 3px 3px 6px #87ceeb;
 }
 
 ul li span {

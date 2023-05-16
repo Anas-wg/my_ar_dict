@@ -22,7 +22,7 @@ ul {
 }
 ul li {
   flex-wrap: wrap;
-  border: 2px solid var(--color--mainblue);
+  border: 1px solid var(--color--mainblue);
   border-radius: 20px;
   width: 240px;
   height: 120px;
@@ -30,6 +30,13 @@ ul li {
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 2px 2px 6px gray;
+}
+
+ul li:hover {
+  box-shadow: 3px 3px 6px skyblue;
+  transition: .6s;
+  font-size: 18px;
 }
 
 ul li span{
