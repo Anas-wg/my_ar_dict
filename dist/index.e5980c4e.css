@@ -42,12 +42,6 @@ router-view ul li {
   box-shadow: 20px 20px 60px #cccfd9, -20px -20px 60px #fff;
 }
 
-router-view ul li:hover {
-  background: #f0f4ff;
-  transition: all .6s;
-  box-shadow: inset 20px 20px 60px #cccfd9, inset -20px -20px 60px #fff;
-}
-
 router-view ul li span {
   padding: 10px;
 }

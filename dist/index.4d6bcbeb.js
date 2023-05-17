@@ -695,6 +695,8 @@ class TheHeader extends (0, _coreComponent.CoreCompoent) {
     constructor(){
         super({
             tagName: "header",
+            // state data 에 menus 배열을 전달
+            // menus 배열에는 라우팅될 페이지와 주소(href)을 저장
             state: {
                 menus: [
                     {
@@ -720,6 +722,7 @@ class TheHeader extends (0, _coreComponent.CoreCompoent) {
                 ]
             }
         });
+        // 페이지 변화가 있을때마다 렌더링
         window.addEventListener("popstate", ()=>{
             this.render();
         });
@@ -728,11 +731,14 @@ class TheHeader extends (0, _coreComponent.CoreCompoent) {
         this.el.innerHTML = /* HTML */ `
     <h1>Al-Klimat</h1>
         <ul>
+          <!-- State의 menu 배열을 map 메서드를 이용하여 콜백함수를 호출 -->
+          <!-- 콜백함수는 배열내 href 속성과 location 객체의 hash 값을 비교 -->
           ${this.state.menus.map((menu)=>{
             const href = menu.href.split("#/")[1];
             const hash = location.hash.split("#/")[1];
+            // 만약 hash값과 같은 href 속성을 가진 페이지에 사용자가 있음 -> isActive 붙여주기
             const isActive = href === hash;
-            console.log(href, hash);
+            console.log(`href: ${href},hash : ${hash}`);
             return /* html */ `
               <li>
                 <a
@@ -817,7 +823,7 @@ class WordList extends (0, _coreComponent.CoreCompoent) {
         <ul id = "myUL">
         ${data.map(function(element) {
             return `
-            <li class = "wordlist">
+            <li class = "wordbox">
               <span>${element.single} ${element.plural ? "-" + element.plural : ""}</span>
               <span>${element.mean}</span>
             </li>
@@ -1246,7 +1252,7 @@ class Search extends (0, _coreComponent.CoreCompoent) {
     </div>
       <div>
         <ul>
-          <li class="result">단어 등장 예정!</li>
+          <li class="result">단어를 검색해 보세요!</li>
         </ul>
       </div>
 

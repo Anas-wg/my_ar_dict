@@ -11,7 +11,7 @@ export default class WordList extends CoreCompoent {
         ${data
         .map(function (element) {
             return `
-            <li class = "wordlist">
+            <li class = "wordbox">
               <span>${element.single} ${element.plural ? "-" + element.plural : ""}</span>
               <span>${element.mean}</span>
             </li>

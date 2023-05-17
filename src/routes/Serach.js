@@ -15,7 +15,7 @@ export default class Search extends CoreCompoent {
     </div>
       <div>
         <ul>
-          <li class="result">단어 등장 예정!</li>
+          <li class="result">단어를 검색해 보세요!</li>
         </ul>
       </div>
 
@@ -29,10 +29,11 @@ export default class Search extends CoreCompoent {
       if (langSelectBtnEl.classList)
         // toggle 을 사용하여 자유로운 전환이 가능하도록 함
         langSelectBtnEl.classList.toggle('AR')
-      langSelectBtnEl.innerHTML = (langSelectBtnEl.classList == "AR") 
-        ? `AR` 
+      langSelectBtnEl.innerHTML = (langSelectBtnEl.classList == "AR")
+        ? `AR`
         : `KR`
     })
+
 
     inputEl.addEventListener('input', () => {
       DATA.map(item => {

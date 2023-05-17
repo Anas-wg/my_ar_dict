@@ -24,6 +24,7 @@ body {
   width: 100%;
 }
 
+
 router-view ul {
   display: flex;
   justify-content: center;
@@ -46,12 +47,12 @@ router-view ul li {
     -20px -20px 60px #ffffff;
 }
 
-router-view ul li:hover {
+/* router-view ul li:hover {
   background: #f0f4ff;
   box-shadow: inset 20px 20px 60px #cccfd9,
     inset -20px -20px 60px #ffffff;
   transition: .6s;
-}
+} */
 
 router-view ul li span {
   padding: 10px;
@@ -121,8 +122,6 @@ header ul li a.active{
   font-size: 20px;
 }
 
-
-
 /* about */
 .about {
   display: flex;
@@ -133,3 +132,4 @@ header ul li a.active{
 .about a {
   margin:0px 30px;
 }
+

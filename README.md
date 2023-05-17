@@ -2,6 +2,8 @@
 
 ## [Link: Al-Klimat](https://my-ar-dict.vercel.app/#/)
 
+
+
 ### 목차
 1. [Inspired](#inspired)
 2. [Function Structure](#function-structure)
