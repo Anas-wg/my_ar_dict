@@ -5,12 +5,14 @@ export default class Search extends CoreCompoent {
   render() {
     this.el.classList.add('search')
     this.el.innerHTML = /* html */`
-      <input
+    <div id="searcharea">
+    <input
         placeholder ="Enter the word mean"
       >
       <button id="lang">
         KR
       </button>
+    </div>
       <div>
         <ul>
           <li class="result">단어 등장 예정!</li>
@@ -25,9 +27,11 @@ export default class Search extends CoreCompoent {
     // 언어선택 버튼 - KR을 기본값으로 두고, class 에 "AR"이 추가되면 버튼의 내용이 AR 로 바뀌도록함
     langSelectBtnEl.addEventListener('click', () => {
       if (langSelectBtnEl.classList)
-      // toggle 을 사용하여 자유로운 전환이 가능하도록 함
+        // toggle 을 사용하여 자유로운 전환이 가능하도록 함
         langSelectBtnEl.classList.toggle('AR')
-      langSelectBtnEl.innerHTML = (langSelectBtnEl.classList == "AR") ? `AR` : `KR`
+      langSelectBtnEl.innerHTML = (langSelectBtnEl.classList == "AR") 
+        ? `AR` 
+        : `KR`
     })
 
     inputEl.addEventListener('input', () => {

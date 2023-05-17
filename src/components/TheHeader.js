@@ -3,19 +3,59 @@ import { CoreCompoent } from "../core/coreComponent";
 export default class TheHeader extends CoreCompoent{
   constructor(){
     super({
-      tagName : 'header'
+      tagName : 'header',
+      state: {
+        menus: [
+          {
+            name: 'Home',
+            href: '#/'
+          },
+          {
+            name: 'Noun',
+            href: '#/noun'
+          },
+          {
+            name: 'Verb',
+            href: '#/verb'
+          },
+          {
+            name: 'About',
+            href: '#/about'
+          },
+          {
+            name: '🔎',
+            href: '#/search'
+          },
+        ]
+      }
+    })
+    window.addEventListener('popstate',()=> {
+      this.render()
     })
   }
   render(){
     this.el.innerHTML = /* HTML */`
-    <h1 class="title">Al-Klimat</h1>
-    <!-- hash 를 이용하여 페이지를 이동 -->
-      <a href='#'>Home</a>
-    <!-- hash 변경시마다 window 객체에 postate 이벤트 발생 -->
-      <a href='#/noun'>Noun</a>
-      <a href='#/verb'>Verb</a>
-      <a href='#/about'>About</a>
-      <a href='#/search'>🔎</a>
+    <h1>Al-Klimat</h1>
+        <ul>
+          ${this.state.menus.map(menu =>{
+            const href = menu.href.split('#/')[1]
+            const hash = location.hash.split('#/')[1]
+            const isActive = href === hash
+            console.log(href,hash)
+            return /* html */`
+              <li>
+                <a
+                  class = "${isActive ? 'active' : ''}"
+                  href = "${menu.href}">
+                ${menu.name}
+                </a>
+              </li>
+            `
+          }).join('')}
+        </ul>
     `
+
+  
   }
+
 }

@@ -6,7 +6,6 @@ export default class Noun extends CoreCompoent {
   render(){
     const data = DATA
     this.el.innerHTML = /* html */`
-      <h1> Noun Page</h1>
       <div class="word">
         <ul>
         ${data

@@ -1,18 +1,27 @@
+@font-face {
+  font-family: GongGothicMedium;
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --color--mainblue: #00165d;
   --color--charcol: #273746;
   --color--white: #fdfefe;
+  --color--numoblue: #f0f4ff;
 }
 
 body {
-  color: var(--color--mainblue);
+  background-color: var(--color--numoblue);
+  font-family: GongGothicMedium;
 }
 
 .word {
   width: 100%;
 }
 
-ul {
+router-view ul {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
@@ -20,26 +29,26 @@ ul {
   display: flex;
 }
 
-ul li {
-  border: 1px solid var(--color--mainblue);
+router-view ul li {
   width: 240px;
   height: 120px;
+  background: #f0f4ff;
   border-radius: 20px;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   margin: 5px 10px;
   display: flex;
-  box-shadow: 2px 2px 6px gray;
+  box-shadow: 20px 20px 60px #cccfd9, -20px -20px 60px #fff;
 }
 
-ul li:hover {
-  font-size: 18px;
+router-view ul li:hover {
+  background: #f0f4ff;
   transition: all .6s;
-  box-shadow: 3px 3px 6px #87ceeb;
+  box-shadow: inset 20px 20px 60px #cccfd9, inset -20px -20px 60px #fff;
 }
 
-ul li span {
+router-view ul li span {
   padding: 10px;
 }
 
@@ -47,10 +56,71 @@ header {
   margin: 0 10px;
 }
 
-header a {
-  color: var(--color--mainblue);
+header ul {
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+header ul li {
+  color: #f0f4ff;
+  text-shadow: 0 0 3px var(--color--mainblue);
+  margin: 10px;
+}
+
+header ul li a {
+  color: var(--color--numoblue);
   cursor: pointer;
   text-decoration: none;
+}
+
+header ul a:hover {
+  text-decoration: underline;
+  -webkit-text-decoration-color: var(--color--mainblue);
+  text-decoration-color: var(--color--mainblue);
+  color: var(--color--mainblue);
+  transition: all .6s;
+}
+
+header ul li a.active {
+  color: var(--color--mainblue);
+  font-size: 18px;
+}
+
+#searcharea {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+#searcharea input {
+  width: 250px;
+  border: none;
+  border-bottom: .5px solid var(--color--mainblue);
+  background-color: #0000;
+  outline: none;
+  padding: 10px;
+}
+
+#searcharea input:focus {
+  border-bottom: 2px solid var(--color--mainblue);
+  transition: all .2s;
+}
+
+#searcharea #lang {
+  background-color: #0000;
+  border: none;
+  font-size: 20px;
+}
+
+.about {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.about a {
+  margin: 0 30px;
 }
 
 /*# sourceMappingURL=index.e5980c4e.css.map */

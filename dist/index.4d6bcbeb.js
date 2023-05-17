@@ -606,6 +606,7 @@ class CoreCompoent {
         const { tagName ="div" , state ={} , props ={}  } = payload;
         // 받아온 TagName 대로 html에 태그를 생성
         this.el = document.createElement(tagName);
+        this.el.classList.add("Box");
         this.state = state;
         this.props = props;
         this.render();
@@ -693,19 +694,56 @@ var _coreComponent = require("../core/coreComponent");
 class TheHeader extends (0, _coreComponent.CoreCompoent) {
     constructor(){
         super({
-            tagName: "header"
+            tagName: "header",
+            state: {
+                menus: [
+                    {
+                        name: "Home",
+                        href: "#/"
+                    },
+                    {
+                        name: "Noun",
+                        href: "#/noun"
+                    },
+                    {
+                        name: "Verb",
+                        href: "#/verb"
+                    },
+                    {
+                        name: "About",
+                        href: "#/about"
+                    },
+                    {
+                        name: "\uD83D\uDD0E",
+                        href: "#/search"
+                    }
+                ]
+            }
+        });
+        window.addEventListener("popstate", ()=>{
+            this.render();
         });
     }
     render() {
         this.el.innerHTML = /* HTML */ `
-    <h1 class="title">Al-Klimat</h1>
-    <!-- hash 를 이용하여 페이지를 이동 -->
-      <a href='#'>Home</a>
-    <!-- hash 변경시마다 window 객체에 postate 이벤트 발생 -->
-      <a href='#/noun'>Noun</a>
-      <a href='#/verb'>Verb</a>
-      <a href='#/about'>About</a>
-      <a href='#/search'>🔎</a>
+    <h1>Al-Klimat</h1>
+        <ul>
+          ${this.state.menus.map((menu)=>{
+            const href = menu.href.split("#/")[1];
+            const hash = location.hash.split("#/")[1];
+            const isActive = href === hash;
+            console.log(href, hash);
+            return /* html */ `
+              <li>
+                <a
+                  class = "${isActive ? "active" : ""}"
+                  href = "${menu.href}">
+                ${menu.name}
+                </a>
+              </li>
+            `;
+        }).join("")}
+        </ul>
     `;
     }
 }
@@ -760,7 +798,6 @@ var _serachDefault = parcelHelpers.interopDefault(_serach);
 class Home extends (0, _coreComponent.CoreCompoent) {
     render() {
         this.el.innerHTML = /* HTML */ `
-    <h1 class="title">Home Page</h1>
     `;
         this.el.append(new (0, _wordListDefault.default)().el);
     }
@@ -1199,12 +1236,14 @@ class Search extends (0, _coreComponent.CoreCompoent) {
     render() {
         this.el.classList.add("search");
         this.el.innerHTML = /* html */ `
-      <input
+    <div id="searcharea">
+    <input
         placeholder ="Enter the word mean"
       >
       <button id="lang">
         KR
       </button>
+    </div>
       <div>
         <ul>
           <li class="result">단어 등장 예정!</li>
@@ -1248,12 +1287,23 @@ var _coreComponent = require("../core/coreComponent");
 class About extends (0, _coreComponent.CoreCompoent) {
     render() {
         this.el.innerHTML = /* HTML */ `
-    <h1>About Me</h1>
-    <ul>
-      <li><a href = '#'>My GitHub link</a></li>
-      <li><a href = '#'>My devlog</a></li>
-      <li><a href = '#'>wg12181218@gmail.com</a></li>
-    </ul>
+    <div class="about">
+      <div>
+        <a class = "gitHub" href = 'https://github.com/Anas-wg' target="_blank">
+          <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" width="100" heigth="100"/>
+        </a>
+      </div>
+      <div>
+        <a class="velog" href = 'https://velog.io/@false90' target="_blank">
+          <img src="https://images.velog.io/images/kim-mg/post/b6928585-e245-4e5f-b878-0bbf278e5886/velog_logo.png" width="100" heigth="100"/>
+        </a>
+      </div>
+      <div>
+        <a class="email" href = 'https://mail.google.com/mail/?view=cm&fs=1&to=wg12181218@gmai.com' target="_blank">
+          <img src="https://workspace.google.com/static/img/products/png/gmail.png?cache=f50ecb6" width="100" heigth="100"/>
+        </a>
+      </div>
+    </div>
     `;
     }
 }
@@ -1268,7 +1318,6 @@ class Noun extends (0, _coreComponent.CoreCompoent) {
     render() {
         const data = (0, _worddata.DATA);
         this.el.innerHTML = /* html */ `
-      <h1> Noun Page</h1>
       <div class="word">
         <ul>
         ${data.filter((data)=>data.part === "noun").map(function(element) {
@@ -1295,7 +1344,6 @@ class Verb extends (0, _coreComponent.CoreCompoent) {
     render() {
         const data = (0, _worddata.DATA);
         this.el.innerHTML = /* html */ `
-      <h1> Verb Page</h1>
       <div class="word">
         <ul>
         ${data.filter((data)=>data.part === "verb").map(function(element) {
