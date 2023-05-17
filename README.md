@@ -16,6 +16,12 @@ FASTCAMPUS 3rd Project: OMdB Movie Search Site
 [GitHub Repo Link](https://github.com/Anas-wg/vanillaJS-movie-app)
 
 
+### 계발 계기
+아랍어과 학생들은 단어를 공부할때,
+명사의 경우 단수와 복수형을,   
+동사의 경우 완료형과 미완료형을 같이 공부하기를 원함.
+
+
 
 
 ### 개발 과정 기록 장소
@@ -67,8 +73,7 @@ Main 과 비슷한 구조를 갖는다.
     "appendix": ""
   },
 ```
-일단 single과 mean 에 해당하는 value만 보여주는 것이 1차 목표이다.
-그리고 단어 데이터 파일에서 단어를 가져오는 형식으로 만들어보고,
+단어 데이터 파일에서 단어를 가져오는 형식으로 만들어보고,
 
 그다음 Gist 에 올린이상 주소를 활용해서 API 처럼 활용이 가능하기 때문에
 추후 개선을 하는 방향으로 진행할 예정이다.
