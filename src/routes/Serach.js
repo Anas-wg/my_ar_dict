@@ -23,7 +23,7 @@ export default class Search extends CoreCompoent {
     const inputEl = this.el.querySelector('input')
     const resultEl = this.el.querySelector('.result')
     const langSelectBtnEl = this.el.querySelector('#lang')
-
+  
     // 언어선택 버튼 - KR을 기본값으로 두고, class 에 "AR"이 추가되면 버튼의 내용이 AR 로 바뀌도록함
     langSelectBtnEl.addEventListener('click', () => {
       if (langSelectBtnEl.classList)

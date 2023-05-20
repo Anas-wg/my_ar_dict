@@ -17,19 +17,22 @@ body {
   font-family: GongGothicMedium;
 }
 
-.word {
-  width: 100%;
+a {
+  color: var(--color--mainblue);
+  text-decoration: none;
 }
 
 router-view ul {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  padding: 0;
   list-style: none;
   display: flex;
 }
 
 router-view ul li {
+  cursor: pointer;
   width: 240px;
   height: 120px;
   background: #f0f4ff;
@@ -44,6 +47,15 @@ router-view ul li {
 
 router-view ul li span {
   padding: 10px;
+}
+
+#myUL .checked + .arabic {
+  display: none;
+}
+
+#myUL li.checked {
+  transition: all .6s;
+  box-shadow: inset 20px 20px 60px #cccfd9, inset -20px -20px 60px #fff;
 }
 
 header {
@@ -114,7 +126,20 @@ header ul li a.active {
 }
 
 .about a {
-  margin: 0 30px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 20px;
+  display: flex;
+}
+
+@media (width <= 700px) {
+  .about {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
 }
 
 /*# sourceMappingURL=index.e5980c4e.css.map */

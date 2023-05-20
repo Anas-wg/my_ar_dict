@@ -5,6 +5,7 @@
   font-style: normal;
 }
 
+/* Common */
 
 :root {
   --color--mainblue: #00165D;
@@ -19,10 +20,12 @@ body {
   font-family: 'GongGothicMedium';
 }
 
-/* Wordlist */
-.word {
-  width: 100%;
+a {
+  text-decoration: none;
+  color: var(--color--mainblue);
 }
+
+/* Router-View Common*/
 
 
 router-view ul {
@@ -31,9 +34,11 @@ router-view ul {
   align-items: center;
   flex-wrap: wrap;
   list-style: none;
+  padding: 0;
 }
 
 router-view ul li {
+  cursor: pointer;
   flex-wrap: wrap;
   width: 240px;
   height: 120px;
@@ -47,16 +52,25 @@ router-view ul li {
     -20px -20px 60px #ffffff;
 }
 
-/* router-view ul li:hover {
-  background: #f0f4ff;
-  box-shadow: inset 20px 20px 60px #cccfd9,
-    inset -20px -20px 60px #ffffff;
-  transition: .6s;
-} */
 
 router-view ul li span {
   padding: 10px;
 }
+
+/* Home */
+
+#myUL .checked+.arabic{
+  display: none;
+}
+
+#myUL li.checked {
+  box-shadow: inset 20px 20px 60px #cccfd9,
+            inset -20px -20px 60px #ffffff;
+  transition: .6s;
+}
+
+
+
 
 /* Header */
 
@@ -122,6 +136,8 @@ header ul li a.active{
   font-size: 20px;
 }
 
+
+
 /* about */
 .about {
   display: flex;
@@ -130,6 +146,22 @@ header ul li a.active{
 }
 
 .about a {
-  margin:0px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 20px;
 }
+
+/* About- Mobile */
+@media (max-width:700px) {
+  .about {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+
+
 

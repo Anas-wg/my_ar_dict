@@ -606,7 +606,6 @@ class CoreCompoent {
         const { tagName ="div" , state ={} , props ={}  } = payload;
         // 받아온 TagName 대로 html에 태그를 생성
         this.el = document.createElement(tagName);
-        this.el.classList.add("Box");
         this.state = state;
         this.props = props;
         this.render();
@@ -738,7 +737,7 @@ class TheHeader extends (0, _coreComponent.CoreCompoent) {
             const hash = location.hash.split("#/")[1];
             // 만약 hash값과 같은 href 속성을 가진 페이지에 사용자가 있음 -> isActive 붙여주기
             const isActive = href === hash;
-            console.log(`href: ${href},hash : ${hash}`);
+            // console.log(`href: ${href},hash : ${hash}`)
             return /* html */ `
               <li>
                 <a
@@ -819,19 +818,24 @@ class WordList extends (0, _coreComponent.CoreCompoent) {
     render() {
         const data = (0, _worddata.DATA);
         this.el.innerHTML = /* html */ `
-      <div class="word">
         <ul id = "myUL">
         ${data.map(function(element) {
             return `
-            <li class = "wordbox">
-              <span>${element.single} ${element.plural ? "-" + element.plural : ""}</span>
-              <span>${element.mean}</span>
+            <li class="unchecked">
+                <input type="checkbox" class="unchecked">
+                <span class="arabic">${element.single} ${element.plural ? "-" + element.plural : ""}</span>
+                <span class="korean">${element.mean}</span>
             </li>
             `;
         }).join("")}
-        </ul> 
-      </div>
+        </ul>
     `;
+        const inputEls = this.el.querySelectorAll(".unchecked");
+        inputEls.forEach((element)=>{
+            element.addEventListener("change", ()=>{
+                element.classList.toggle("checked");
+            });
+        });
     }
 }
 exports.default = WordList;
@@ -1294,22 +1298,19 @@ class About extends (0, _coreComponent.CoreCompoent) {
     render() {
         this.el.innerHTML = /* HTML */ `
     <div class="about">
-      <div>
         <a class = "gitHub" href = 'https://github.com/Anas-wg' target="_blank">
-          <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" width="100" heigth="100"/>
+          <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" width="100" height="100"/>
+          <p>GitHub</p>
         </a>
-      </div>
-      <div>
         <a class="velog" href = 'https://velog.io/@false90' target="_blank">
-          <img src="https://images.velog.io/images/kim-mg/post/b6928585-e245-4e5f-b878-0bbf278e5886/velog_logo.png" width="100" heigth="100"/>
+          <img src="https://images.velog.io/images/kim-mg/post/b6928585-e245-4e5f-b878-0bbf278e5886/velog_logo.png" width="100"/>
+          <p>Development Process</p>
         </a>
-      </div>
-      <div>
         <a class="email" href = 'https://mail.google.com/mail/?view=cm&fs=1&to=wg12181218@gmai.com' target="_blank">
-          <img src="https://workspace.google.com/static/img/products/png/gmail.png?cache=f50ecb6" width="100" heigth="100"/>
+          <img src="https://workspace.google.com/static/img/products/png/gmail.png?cache=f50ecb6" width="100" height="100"/>
+          <p>E-mail</p>
         </a>
       </div>
-    </div>
     `;
     }
 }

@@ -49,7 +49,7 @@ export default class TheHeader extends CoreCompoent{
             const hash = location.hash.split('#/')[1]
             // 만약 hash값과 같은 href 속성을 가진 페이지에 사용자가 있음 -> isActive 붙여주기
             const isActive = href === hash
-            console.log(`href: ${href},hash : ${hash}`)
+            // console.log(`href: ${href},hash : ${hash}`)
             return /* html */`
               <li>
                 <a

@@ -15,7 +15,6 @@ export class CoreCompoent {
     } = payload
     // 받아온 TagName 대로 html에 태그를 생성
     this.el = document.createElement(tagName)
-    this.el.classList.add("Box")
     this.state = state
     this.props = props
     this.render()
