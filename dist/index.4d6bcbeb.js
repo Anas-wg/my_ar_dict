@@ -818,10 +818,10 @@ class WordList extends (0, _coreComponent.CoreCompoent) {
     render() {
         const data = (0, _worddata.DATA);
         this.el.innerHTML = /* html */ `
-        <ul id = "myUL">
+        <ul>
         ${data.map(function(element) {
             return `
-            <li class="unchecked">
+            <li id=${element.id} class="unchecked">
                 <input type="checkbox" class="unchecked">
                 <span class="arabic">${element.single} ${element.plural ? "-" + element.plural : ""}</span>
                 <span class="korean">${element.mean}</span>

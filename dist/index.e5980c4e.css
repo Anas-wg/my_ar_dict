@@ -49,11 +49,11 @@ router-view ul li span {
   padding: 10px;
 }
 
-#myUL .checked + .arabic {
+ul .checked + .arabic {
   display: none;
 }
 
-#myUL li.checked {
+ul li.checked {
   transition: all .6s;
   box-shadow: inset 20px 20px 60px #cccfd9, inset -20px -20px 60px #fff;
 }
@@ -140,6 +140,34 @@ header ul li a.active {
     align-items: center;
     display: flex;
   }
+}
+
+.pagination-container {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  position: absolute;
+  bottom: 0;
+}
+
+.pagination-number, .pagination-button {
+  cursor: pointer;
+  height: 2.5rem;
+  width: 2.5rem;
+  background-color: #0000;
+  border: none;
+  border-radius: .2rem;
+  margin: .25rem;
+  font-size: 1.1rem;
+}
+
+.pagination-number:hover, .pagination-button:not(.disabled):hover {
+  background: #fff;
+}
+
+.pagination-number.active {
+  color: #fff;
+  background: #0085b6;
 }
 
 /*# sourceMappingURL=index.e5980c4e.css.map */
