@@ -1,0 +1,188 @@
+@font-face {
+  font-family: 'GongGothicMedium';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Common */
+
+:root {
+  --color--mainblue: #00165D;
+  --color--charcol: #273746;
+  --color--white: #FDFEFE;
+  --color--numoblue: #f0f4ff;
+}
+
+body {
+  /* color: var(--color--mainblue); */
+  background-color: var(--color--numoblue);
+  font-family: 'GongGothicMedium';
+}
+
+a {
+  text-decoration: none;
+  color: var(--color--mainblue);
+}
+
+/* Router-View Common*/
+
+
+router-view ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+}
+
+router-view ul li {
+  cursor: pointer;
+  flex-wrap: wrap;
+  width: 240px;
+  height: 120px;
+  margin: 5px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  background: #f0f4ff;
+  box-shadow: 20px 20px 60px #cccfd9,
+    -20px -20px 60px #ffffff;
+}
+
+
+router-view ul li span {
+  padding: 10px;
+}
+
+/* Home */
+
+ul .checked+.arabic{
+  display: none;
+}
+
+ul li.checked {
+  box-shadow: inset 20px 20px 60px #cccfd9,
+            inset -20px -20px 60px #ffffff;
+  transition: .6s;
+}
+
+
+
+
+/* Header */
+
+header {
+  margin: 0px 10px;
+}
+
+header ul{
+  padding: 0;
+  display: flex;
+  list-style: none;
+}
+
+header ul li {
+  color: #f0f4ff;
+  text-shadow: 0 0 3px var(--color--mainblue);
+  margin: 10px;
+}
+
+header ul li a{
+  color: var(--color--numoblue);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+header ul a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--color--mainblue);
+  color: var(--color--mainblue);
+  transition: .6s;
+}
+
+header ul li a.active{
+  font-size: 18px;
+  color: var(--color--mainblue);
+  
+}
+
+
+/* Search */
+#searcharea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#searcharea input{
+  width: 250px;
+  border: none;
+  background-color: transparent;
+  padding: 10px;
+  border-bottom: 0.5px solid var(--color--mainblue);
+  outline: none;
+}
+
+#searcharea input:focus{
+  transition: .2s;
+  border-bottom: 2px solid var(--color--mainblue);
+}
+
+#searcharea #lang{
+  border: none;
+  background-color: transparent;
+  font-size: 20px;
+}
+
+
+
+/* about */
+.about {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 20px;
+}
+
+/* About- Mobile */
+@media (max-width:700px) {
+  .about {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+
+
+
+/* Pagination */
+.buttons {
+  margin-top: 10px;
+}
+
+.buttons button {
+  padding: 5px 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.buttons button:hover {
+  background-color: #45a049;
+}
+
+.buttons input[type="number"] {
+  width: 50px;
+  padding: 5px;
+}

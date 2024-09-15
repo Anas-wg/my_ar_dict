@@ -1,0 +1,165 @@
+@font-face {
+  font-family: GongGothicMedium;
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --color--mainblue: #00165d;
+  --color--charcol: #273746;
+  --color--white: #fdfefe;
+  --color--numoblue: #f0f4ff;
+}
+
+body {
+  background-color: var(--color--numoblue);
+  font-family: GongGothicMedium;
+}
+
+a {
+  color: var(--color--mainblue);
+  text-decoration: none;
+}
+
+router-view ul {
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+router-view ul li {
+  cursor: pointer;
+  background: #f0f4ff;
+  border-radius: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 240px;
+  height: 120px;
+  margin: 5px 10px;
+  display: flex;
+  box-shadow: 20px 20px 60px #cccfd9, -20px -20px 60px #fff;
+}
+
+router-view ul li span {
+  padding: 10px;
+}
+
+ul .checked + .arabic {
+  display: none;
+}
+
+ul li.checked {
+  transition: all .6s;
+  box-shadow: inset 20px 20px 60px #cccfd9, inset -20px -20px 60px #fff;
+}
+
+header {
+  margin: 0 10px;
+}
+
+header ul {
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+header ul li {
+  color: #f0f4ff;
+  text-shadow: 0 0 3px var(--color--mainblue);
+  margin: 10px;
+}
+
+header ul li a {
+  color: var(--color--numoblue);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+header ul a:hover {
+  text-decoration: underline;
+  -webkit-text-decoration-color: var(--color--mainblue);
+  text-decoration-color: var(--color--mainblue);
+  color: var(--color--mainblue);
+  transition: all .6s;
+}
+
+header ul li a.active {
+  color: var(--color--mainblue);
+  font-size: 18px;
+}
+
+#searcharea {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+#searcharea input {
+  border: none;
+  border-bottom: .5px solid var(--color--mainblue);
+  background-color: #0000;
+  outline: none;
+  width: 250px;
+  padding: 10px;
+}
+
+#searcharea input:focus {
+  border-bottom: 2px solid var(--color--mainblue);
+  transition: all .2s;
+}
+
+#searcharea #lang {
+  background-color: #0000;
+  border: none;
+  font-size: 20px;
+}
+
+.about {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.about a {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 20px;
+  display: flex;
+}
+
+@media (width <= 700px) {
+  .about {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+}
+
+.buttons {
+  margin-top: 10px;
+}
+
+.buttons button {
+  color: #fff;
+  cursor: pointer;
+  background-color: #4caf50;
+  border: none;
+  padding: 5px 10px;
+}
+
+.buttons button:hover {
+  background-color: #45a049;
+}
+
+.buttons input[type="number"] {
+  width: 50px;
+  padding: 5px;
+}
+/*# sourceMappingURL=index.e5980c4e.css.map */
